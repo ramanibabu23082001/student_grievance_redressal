@@ -259,7 +259,7 @@ div.ex {
                    <% for (let complaints of passcomplaints ) { %>
                    <tr class="<%= complaints.id %>" >
                     <td>
-                      <a onclick="popup(this)" id="<%= complaints.id %>">
+                      <a onclick="popup(this)" id="a<%= complaints.id %>">
                        <div class="ex1">
                       <%= complaints.description %>
                        </div>
@@ -282,7 +282,6 @@ div.ex {
                  <h1 style="display: none;padding-left:115px;color:white"> No Complaints Registered Yet Now </h1>
                  <% } %>
       </div>
-
       <br>
       <br>
       <center>
@@ -397,7 +396,7 @@ $(document).ready(function(){
       {
       console.log("popup");
       console.log(select.id);
-      var id=select.id;
+      var id=select.id.substring(1);
       var modal = document.getElementById("myModal");
 
       $.ajax({

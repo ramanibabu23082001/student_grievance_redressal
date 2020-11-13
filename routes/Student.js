@@ -3,7 +3,6 @@ const path=require('path');
 const router=express.Router();
 const isauth =require('../middleware/authentication');
 const Studentcontroller=require("../Control/Student");
-
 router.get("/studentsignin/",Studentcontroller.studentsignin);
 router.post("/studentsignin/",Studentcontroller.signininsert);
 router.get("/studentlogin/",Studentcontroller.studentlogin);
@@ -18,4 +17,4 @@ router.post("/studentdashboard/",isauth,Studentcontroller.escalation);
 router.get("/reportget/:complaintid",isauth,Studentcontroller.openreport);
 router.post("/reopen/",isauth,Studentcontroller.reopen);
 router.post("/details/",isauth,Studentcontroller.detailsection);
-module.exports=router;
+module.exports=router; 

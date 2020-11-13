@@ -126,14 +126,19 @@
                 <div class="col-sm-6" style="padding-left:45px">
                     <div class="form-group">
                         <select class="form-control1"  name="category" id="category" style="border-style:solid;height: 40px;border-color: black;border-width:3px;background:white;color:blue; text-transform: uppercase;width: 100%;">
-                            <option>EXAM</option>
-                            <option>HOSTEL</option>
-                            <option>MESS</option>
-                            <option>ADMISSION</option>
-                            <option>SC/ST CELL</option>
-                            <option>IT</option>
-                            <option>CSE</option>
-                            <option>ECE</option>
+                            <option>Irregularity in the admission process</option>
+                            <option>Exam related issues</option>
+                            <option>Hostel</option>
+                            <option>Mess</option>
+                            <option>SC/ST Cell</option>
+                            <option>Scholarschip irregularity</option>
+                         
+                            <option>Ragging</option>
+                            <option>Sexual Harressment</option>
+                            <option>Library management</option>
+                            <option>College Eco Management</option>
+                            <option>Health center</option>
+                            <option>Online class </option>
                            </select>
                     </div>
                 </div>
@@ -186,7 +191,6 @@
         data:{category:category},
         success:function(jd){
         console.log(jd);
-
         var membertable=$('#member tbody');
         membertable.empty();
         if(jd.length>0){
@@ -219,9 +223,7 @@
           $(id).replaceWith(" ");
         }
       })
-
     }
-    
   </script>  
 </body>
 </html> 

@@ -6,7 +6,7 @@ const nodemailer  = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth : {
-            api_key :'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'//this api key from sendgrip website login and get api from it you can use any website  
+            api_key :'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'//this api key from sendgrip website login and get api from it you can use any website  
     }
   }));
 
@@ -123,10 +123,10 @@ exports.getcomplaints=(req,res,next)=>
 {
     const page = +req.query.page || 1;
     let totalItems;``
-    Complaint.find({escalate:0,status:1}).countDocuments()
+    Complaint.find({escalate:0,status:1,reopen:0}).countDocuments()
      .then(numProducts => {
         totalItems = numProducts;
-        return Complaint.find({escalate:0,status:1})
+        return Complaint.find({escalate:0,status:1,reopen:0})
         .skip((page - 1) * ITEMS_PER_PAGE)//page- 1 = previous page number
         .limit(ITEMS_PER_PAGE).sort([["priority","ascending"],["created_at","ascending"]])
       })
@@ -231,7 +231,7 @@ exports.detailsection=(req,res,next)=>{
   
   };
 exports.logout=(req,res,next)=>{
-  console.log("logout head");
+  console.log("logout admin");
   req.session.destroy(err=>{
     console.log(err);
     res.redirect('/');

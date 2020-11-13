@@ -193,7 +193,7 @@ div.ex {
                   <% if( complaints.status != 5) { %>
                     <tr>
                       <td>
-                       <a onclick="popup(this)" id="<%= complaints.id %>">
+                       <a onclick="popup(this)" id="a<%= complaints.id %>">
                         <div class="ex1">
                        <%= complaints.description %>
                         </div>
@@ -238,7 +238,7 @@ div.ex {
              <% if (complaints.status == 5) { %>
               <tr class="<%= complaints.id %>">
                 <td>
-                  <a onclick="popup(this)" id="<%= complaints.id %>">
+                  <a onclick="popup(this)" id="a<%= complaints.id %>">
                    <div class="ex1">
                   <%= complaints.description %>
                    </div>
@@ -250,7 +250,7 @@ div.ex {
                <a href="/reportget/:<%= complaints.id %>"> <input type="submit" id="<%= complaints.id %>" class="btn btn-primary badge-pill" style="font-size:18px;width: 100%;color:white;background:linear-gradient(90deg, rgba(6,2,64,1) 0%, rgba(18,4,154,1) 11%, rgba(24,7,203,1) 18%, rgba(109,101,252,1) 50%, rgba(24,7,203,1) 81%, rgba(19,5,156,1) 89%, rgba(6,2,64,1) 100%);"  value="Report">
                </a> </td>
                <td><input type="submit" id="<%= complaints.id %>" class="btn btn-primary badge-pill" style="font-size:18px;width: 100%;color:white;background:linear-gradient(90deg, rgba(6,2,64,1) 0%, rgba(18,4,154,1) 11%, rgba(24,7,203,1) 18%, rgba(109,101,252,1) 50%, rgba(24,7,203,1) 81%, rgba(19,5,156,1) 89%, rgba(6,2,64,1) 100%);" onclick="reopen(this)" value="Reopen"></td> 
-             </tr>
+             </tr> 
              <% } %>
              <% } %>
            </tbody>
@@ -344,7 +344,7 @@ div.ex {
     function popup(select){
       console.log("popup");
       console.log(select.id);
-      var id=select.id;
+      var id=select.id.substring(1);
       var modal = document.getElementById("myModal");
 
       $.ajax({

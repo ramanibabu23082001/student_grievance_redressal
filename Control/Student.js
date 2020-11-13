@@ -1,4 +1,4 @@
-
+var Classifier = require( 'wink-naive-bayes-text-classifier');
 const Student=require("../models/Student");
 const Complaint=require("../models/Complaint");
 const Admin=require("../models/admin");
@@ -16,7 +16,7 @@ const { Console } = require("console");
 const escalate = require("../models/escalate");
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth : {
-          api_key :'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'//this api key from sendgrip website login and get api from it you can use any website  
+          api_key :'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'//this api key from sendgrip website login and get api from it you can use any website  
   }
 }));
 exports.studentsignin=(req,res,next)=>
@@ -152,31 +152,41 @@ console.log("logout student");
 });
 };
 exports.registercomplaint=(req,res,next)=>{
- 
-
   res.render('complaintregister',{
-    name:req.session.student.name 
+    name:req.session.student.name,
+    regno:req.session.student.regno  
   });
 
 };
 exports.register=(req,res,next)=>{
- var classifier =new natural.BayesClassifier();
- var tokenizer = new natural.WordTokenizer();
  const data= require("../dataset.json");
-
- //data set
- data.forEach(item=>{
-   classifier.addDocument(tokenizer.tokenize(item.description),item.category); 
- });
- //train
- classifier.train();
  const des=req.body.des;
  console.log(des);
  const sta=1;
  const yesno=req.body.attachment;
  //apply or predict
- console.log(classifier.classify(des));
- const category=classifier.classify(des);
+ var nbc = Classifier();
+ // Load NLP utilities
+ var nlp = require( 'wink-nlp-utils' );
+ // Configure preparation tasks
+ nbc.definePrepTasks( [
+   // Simple tokenizer
+   nlp.string.tokenize0,
+   // Common Stop Words Remover
+   nlp.tokens.removeWords,
+   // Stemmer to obtain base word
+   nlp.tokens.stem
+ ] );
+ // Configure behavior 
+ nbc.defineConfig( { considerOnlyPresence: true, smoothingFactor: 0.5 } );
+ // Train!
+ const datas= require("../dataset.json");
+ datas.forEach(item=>{
+     nbc.learn( item.description,item.category);
+   });
+ // Consolidate all the training!!
+ nbc.consolidate();
+ const category= nbc.predict(des) ;
  //persisting save
  const prior=priority(category);
  //console.log(one);
@@ -256,7 +266,7 @@ exports.register=(req,res,next)=>{
     <h3>Use this id for viewing the status of the complaint</h3>
     <a href="http://localhost:3000/staus">
     Check Status </a>
-    </body>`
+    F</body>`
     })
     .then(result=>
       {
@@ -287,16 +297,6 @@ exports.register=(req,res,next)=>{
    return 1;
    if(category =='Scholarschip irregularity') 
    return 3;
-   if(category =='EEE')
-   return 4;
-   if(category =='ECE')
-   return 4;
-   if(category =='IST')
-   return 4;
-   if(category =='MECH')
-   return 4;
-   if(category =='CSE')
-   return 4;
    if(category =='Ragging')
    return 1;
    if(category =='Sexual Harressment')
@@ -305,13 +305,16 @@ exports.register=(req,res,next)=>{
    return 5;
    if(category =='College Eco Management') 
    return 4;
-   if(category =='Health Center') 
+   if(category =='Health center') 
    return 1;
+   if(category =='Online class')
+   return 2;
   }
 };
 exports.status=(req,res,next)=>{
 res.render('status',{
-  name:req.session.student.name 
+  name:req.session.student.name,
+  regno:req.session.student.regno   
 });
 };
 exports.statuscheck=(req,res,next)=>{
@@ -322,7 +325,6 @@ Complaint.findById({_id:id})
   console.log(complaint.status);
 const stat=complaint.status;
 res.json({status:stat});
-
 
 })
 .catch(err=>{
@@ -349,7 +351,6 @@ if((nowdate.getDate()-credate.getDate())>=0)
   updatedate();
 }
 }
-
 if(cat=="Exam Related Issues")
 {
   if((nowdate.getDate()-credate.getDate())>=3)
@@ -370,11 +371,13 @@ if(cat=="Hostel")
 }
 if(cat=="Mess")
 {
+  
   if((nowdate.getDate()-credate.getDate())>=0)
   {
+    updatedate();
     console.log(nowdate.getDate()-credate.getDate());
    // escalateinsert();
-    updatedate();
+  
   }
 }
 if(cat=="SC/ST Cell")
@@ -395,51 +398,7 @@ if(cat=="Scholarship irregularity")
     updatedate();
   }
 }
-if(cat=="EEE")
-{
-  if((nowdate.getDate()-credate.getDate())>=10)
-  {
-    console.log(nowdate.getDate()-credate.getDate());
-   // escalateinsert();
-    updatedate();
-  }
-}
-if(cat=="ECE")
-{
-  if((nowdate.getDate()-credate.getDate())>=10)
-  {
-    console.log(nowdate.getDate()-credate.getDate());
-    //escalateinsert();
-    updatedate();
-  }
-}
-if(cat=="IST")
-{
-  if((nowdate.getDate()-credate.getDate())>=10)
-  {
-    console.log(nowdate.getDate()-credate.getDate());
-   // escalateinsert();
-    updatedate();
-  }
-}
-if(cat=="MECH")
-{
-  if((nowdate.getDate()-credate.getDate())>=10)
-  {
-    console.log(nowdate.getDate()-credate.getDate());
-    //escalateinsert();
-    updatedate();
-  }
-}
-if(cat=="CSE")
-{
-  if((nowdate.getDate()-credate.getDate())>=10)
-  {
-    console.log(nowdate.getDate()-credate.getDate());
-    //escalateinsert();
-    updatedate();
-  }
-}
+
 if(cat=="Ragging")
 {
   if((nowdate.getDate()-credate.getDate())>=1)
@@ -476,7 +435,7 @@ if(cat=="College Eco Management")
     updatedate();
   }
 }
-if(cat=="Health Center")
+if(cat=="Health center")
 {
   if((nowdate.getDate()-credate.getDate())>=1)
   {
@@ -485,7 +444,15 @@ if(cat=="Health Center")
     updatedate();
   }
 }
-
+if(cat=="Online class")
+{
+  if((nowdate.getDate()-credate.getDate())>=0)
+  {
+    console.log(nowdate.getDate()-credate.getDate());
+   // escalateinsert();
+    updatedate();
+  }
+}
 // function escalateinsert()
 // {
 //   if(result.attachmentname){
@@ -513,6 +480,7 @@ if(cat=="Health Center")
 // }
 function updatedate()
 {
+  console.log("esacalted");
   result.escalate=1;
   result.created_at=new Date();
   result.status=1;
@@ -533,9 +501,6 @@ fs.readFile( filepat , function (err,data){//this for only viewing pdf
     res.contentType("application/pdf");
     res.send(data);
 });
-
-
-
 };
 exports.reopen=(req,res,next)=>{
 const complaintid=req.body.complaintid;
@@ -563,4 +528,3 @@ exports.detailsection=(req,res,next)=>{
   })
   
   };
-  
