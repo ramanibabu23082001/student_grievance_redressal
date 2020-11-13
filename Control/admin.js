@@ -5,10 +5,10 @@ const { request } = require("express");
 const nodemailer  = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const transporter = nodemailer.createTransport(sendgridTransport({
-    auth : {
-            api_key :'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'//this api key from sendgrip website login and get api from it you can use any website  
-    }
-  }));
+  auth : {
+          api_key :process.env.MAIL//this api key from sendgrip website login and get api from it you can use any website  
+  }
+}));
 
 const ITEMS_PER_PAGE = 10;
 exports.add=(req,res,next)=>

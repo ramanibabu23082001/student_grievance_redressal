@@ -16,7 +16,7 @@ const { Console } = require("console");
 const escalate = require("../models/escalate");
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth : {
-          api_key :'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'//this api key from sendgrip website login and get api from it you can use any website  
+          api_key :process.env.MAIL//this api key from sendgrip website login and get api from it you can use any website  
   }
 }));
 exports.studentsignin=(req,res,next)=>
