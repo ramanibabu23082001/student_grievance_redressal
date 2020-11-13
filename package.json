@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
+    "start": "NODE_ENV=production MONGO_USER=ramani MONGO_PASSWORD=ragulramani MONGO_DEFAULT_DATABASE=sgc MAIL=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 nodemon app.js",
     "start-server": "node app.js"
   },
   "author": "",
