@@ -220,7 +220,7 @@ exports.register=(req,res,next)=>{
     <h1>Your Complaint registered successfully</h1>
     <h2>Your Complaint id :${com._id} </h2>
     <h3>Use this id for viewing the status of the complaint</h3>
-    <a href="http://localhost:3000/status">
+    <a href="http://www.ausgc.herokuapp.com/status">
     Check Status </a>
     </body>`
   })
@@ -264,7 +264,7 @@ exports.register=(req,res,next)=>{
     <h1>Your Complaint registered successfully</h1>
     <h2>Your Complaint id :${com._id} </h2>
     <h3>Use this id for viewing the status of the complaint</h3>
-    <a href="http://localhost:3000/staus">
+   <a href="http://ausgc.herokuapp.com.status">
     Check Status </a>
     F</body>`
     })
