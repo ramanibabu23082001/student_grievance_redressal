@@ -15,8 +15,6 @@ const helmet= require('helmet');
 const compression= require('compression');
 const morgan=require('morgan');
 const app = express();// we get express for function 
-const http =require('http').createServer(app);
-var io= require("socket.io")(http);
 const MONGODB_URI =
   `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-1azzz.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;//change by '' replce  `` dep
 
