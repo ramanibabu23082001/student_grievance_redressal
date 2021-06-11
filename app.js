@@ -16,7 +16,7 @@ const compression= require('compression');
 const morgan=require('morgan');
 const app = express();// we get express for function 
 const MONGODB_URI =
-  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-1azzz.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;//change by '' replce  `` dep
+  `mongodb+srv://ramani:ragulramani@cluster0-1azzz.mongodb.net/sgc?retryWrites=true&w=majority`;//change by '' replce  `` dep
 
   console.log(process.env.NODE_ENV);
 const store = new MongoDBStore({

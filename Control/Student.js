@@ -213,6 +213,7 @@ exports.register=(req,res,next)=>{
       res.redirect('/studentdashboard/');
      
   return  transporter.sendMail({
+    
     to: req.session.student.email,
     from: 'studentgrievancecommission@outlook.com',
     subject: 'Complaint registered successfully',
