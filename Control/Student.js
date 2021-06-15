@@ -62,7 +62,7 @@ exports.signininsert=(req,res,next)=>
          .then(result => {
             //res.locals.session.email = email,
            // console.log("User created successfully!"),
-            res.render('home');
+            res.render('studentlogin');
             console.log("emailedeee");
             return transporter.sendMail({
               to: emailid,
