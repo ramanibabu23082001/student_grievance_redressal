@@ -16,7 +16,7 @@ const compression= require('compression');
 const morgan=require('morgan');
 const app = express();// we get express for function 
 const MONGODB_URI =
-  `  `mongodb+srv://ramani:ragulramani@cluster0-1azzz.mongodb.net/sgc?retryWrites=true&w=majority`;
+    `mongodb+srv://ramani:ragulramani@cluster0-1azzz.mongodb.net/sgc?retryWrites=true&w=majority`;
    
   
 
